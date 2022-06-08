@@ -1,11 +1,24 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import Task from './components/Task';
+
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+        
+        
+        {/* Diary Page */}
+        <view>
+          <Text style={styles.Dtitle}>Todays Entry</Text>
+
+          <view>
+            {/* This is where the different modules go */}
+            <Task />
+            <Task />
+          </view>
+
+        </view>
+
     </View>
   );
 }
@@ -17,4 +30,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  Dpage: {
+    paddingTop: 80,
+    paddingHorizontal: 20
+  },
+
+  Dtitle: {
+    fontSize: 24,
+  },
+  Ditems: {},
 });
