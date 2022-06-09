@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native';
-import Task from './components/Task';
+import { StyleSheet, Text, View , ScrollView, SafeAreaView} from 'react-native';
+import Dentry from './components/Dentry';
 
 
 export default function App() {
@@ -8,16 +8,23 @@ export default function App() {
         
         
         {/* Diary Page */}
-        <view>
-          <Text style={styles.Dtitle}>Desktop Test</Text>
+        <View style={styles.Dpage}>
+          <Text style={styles.Dtitle}>12 Entries</Text>
 
-          <view>
+          <ScrollView style={styles.Ditems}>
             {/* This is where the different modules go */}
-            <Task />
-            <Task />
-          </view>
+            <Dentry text={'Entry not complete'} day={'28'} month={'Jun'} />
+            <Dentry text={'Entry Complete!'} day={'27'} month={'Jun'}/>
+            <Dentry text={'Entry Complete!'} day={'27'} month={'Jun'}/>
+            <Dentry text={'Entry Complete!'} day={'27'} month={'Jun'}/>
+            <Dentry text={'Entry Complete!'} day={'27'} month={'Jun'}/>
+            <Dentry text={'Entry Complete!'} day={'27'} month={'Jun'}/>
+            <Dentry text={'Entry Complete!'} day={'27'} month={'Jun'}/>
+            <Dentry text={'Entry Complete!'} day={'27'} month={'Jun'}/>
+            <View style={styles.Buffer}/>
+          </ScrollView>
 
-        </view>
+        </View>
 
     </View>
   );
@@ -26,9 +33,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#9ccfed',
   },
   Dpage: {
     paddingTop: 80,
@@ -36,7 +41,12 @@ const styles = StyleSheet.create({
   },
 
   Dtitle: {
-    fontSize: 24,
+    fontSize: 54,
+    fontWeight: 'bold',
+    color: 'white',
   },
   Ditems: {},
+  Buffer: {
+    marginTop: 70,
+  },
 });
