@@ -9,7 +9,7 @@ export default function App() {
         
         {/* Diary Page */}
         <view>
-          <Text style={styles.Dtitle}>Todays Entry</Text>
+          <Text style={styles.Dtitle}>Desktop Test</Text>
 
           <view>
             {/* This is where the different modules go */}
