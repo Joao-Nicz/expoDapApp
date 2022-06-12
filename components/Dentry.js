@@ -76,14 +76,14 @@ const styles = StyleSheet.create({
 
 
 const stylesStatus = StyleSheet.create ({
-    1: {backgroundColor: 'green'},
+    complete: {backgroundColor: 'green'},
     halfcomplete: {backgroundColor: 'orange'},
     notcomplete: {backgroundColor: 'red'},
     default: {backgroundColor: 'grey'}
 });
 
 export const DentryStatus={
-    complete: '1',
+    complete: 'complete',
     halfcomplete: 'halfcomplete',
     notcomplete: 'notcomplete',
 };
