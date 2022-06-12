@@ -2,6 +2,9 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
 const Dentry = (props) => {
+    const itemTextStyle = StyleSheet.flatten (
+        [styles.itemText, stylesStatus[props.status] ?? stylesStatus.default]
+        )
     return (
         // Makes each clickable module
         <TouchableOpacity style={styles.item}>
@@ -19,13 +22,14 @@ const Dentry = (props) => {
 
                     {/* Text to inform user if entry is complete yet or not */}
                     {/* ASK SHAUN HOW TO DO THE ${} THING INTO STYLES */}
-                    <Text style={styles.itemText}>{props.text}</Text>
+                    <Text style={itemTextStyle}>{props.text}</Text>
                 </View>
         </TouchableOpacity> 
     )
 }
 
 const styles = StyleSheet.create({
+  
     item: {
         backgroundColor: '#75d1b6',
         padding: 20,
@@ -67,8 +71,22 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 30,
     
-    },
+    },   
 });
+
+
+const stylesStatus = StyleSheet.create ({
+    1: {backgroundColor: 'green'},
+    halfcomplete: {backgroundColor: 'orange'},
+    notcomplete: {backgroundColor: 'red'},
+    default: {backgroundColor: 'grey'}
+});
+
+export const DentryStatus={
+    complete: '1',
+    halfcomplete: 'halfcomplete',
+    notcomplete: 'notcomplete',
+};
 
 
 export default Dentry;
