@@ -1,13 +1,14 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
+// sets the color of each module automatically
 const Dentry = (props) => {
-    const itemTextStyle = StyleSheet.flatten (
+    const backgroundCompletionColor = StyleSheet.flatten (
         [styles.itemText, stylesStatus[props.status] ?? stylesStatus.default]
         )
     return (
         // Makes each clickable module
-        <TouchableOpacity style={styles.item}>
+        <TouchableOpacity style={[styles.item, backgroundCompletionColor]}>
                 <View style={styles.itemLeft}>
 
                     {/* This makes the colored calendar with importable dates */}
@@ -21,8 +22,7 @@ const Dentry = (props) => {
                     </View>
 
                     {/* Text to inform user if entry is complete yet or not */}
-                    {/* ASK SHAUN HOW TO DO THE ${} THING INTO STYLES */}
-                    <Text style={itemTextStyle}>{props.text}</Text>
+                    <Text style={styles.itemText}>{props.text}</Text>
                 </View>
         </TouchableOpacity> 
     )
@@ -76,10 +76,17 @@ const styles = StyleSheet.create({
 
 
 const stylesStatus = StyleSheet.create ({
-    complete: {backgroundColor: 'green'},
-    halfcomplete: {backgroundColor: 'orange'},
-    notcomplete: {backgroundColor: 'red'},
-    default: {backgroundColor: 'grey'}
+    complete: {backgroundColor: '#42f563'},
+    halfcomplete: {backgroundColor: '#adf7bb'},
+    notcomplete: {backgroundColor: '#81e394'},
+    default: {
+        backgroundColor: 'grey',
+        padding: 20,
+        borderRadius: 10,
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 20,
+    }
 });
 
 export const DentryStatus={

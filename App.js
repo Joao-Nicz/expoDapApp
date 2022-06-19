@@ -4,25 +4,46 @@ import {DentryStatus} from './components/Dentry';
 
 export const AppStatus={
   submitted: DentryStatus.complete,
-  halfcomplete: DentryStatus.halfcomplete,
-  notcomplete: DentryStatus.notcomplete,
+  inProgress: DentryStatus.halfcomplete,
+  empty: DentryStatus.notcomplete,
 };
 
 
+const StatusText={
+  submitted: 'Entry Complete!',
+  inProgress: 'Entry not finished!',
+  empty: 'No entry yet'
+};
 const calendarEvents = [
   {
     id: 1,
-    text: 'entry 1',
+    text: StatusText.submitted,
     day: '28',
     month: 'Jun',
     status: AppStatus.submitted,
   },
   {
     id: 2,
-    text: 'Entry complete',
-    day: '22',
-    month: 'Jul'
-  }
+    text: StatusText.inProgress,
+    day: '27',
+    month: 'Jun',
+    status: AppStatus.inProgress,
+  },
+  {
+    id: 3,
+    text: StatusText.empty,
+    day: '26',
+    month: 'Jun',
+    status: AppStatus.empty,
+  },
+  {
+    id: 4,
+    text: StatusText.empty,
+    day: '25',
+    month: 'Jun',
+    status: AppStatus.empty,
+  },
+
 ];
 
 export default function App() {
@@ -40,14 +61,14 @@ export default function App() {
               <Dentry key={calendarevent.id} {...calendarevent}/>
             ))}
             {/* This is where the different modules go */}
-            <Dentry text={'Entry not complete'} day={'28'} month={'Jun'} status={AppStatus}/>
+            {/* <Dentry text={'Entry not complete'} day={'28'} month={'Jun'} status={AppStatus}/>
             <Dentry text={'Entry Complete!'} day={'27'} month={'Jun'} status={AppStatus}/>
             <Dentry text={'Entry Complete!'} day={'27'} month={'Nov'} status={AppStatus}/>
             <Dentry text={'Entry Complete!'} day={'27'} month={'Jun'}/>
             <Dentry text={'Entry Complete!'} day={'27'} month={'Jun'}/>
             <Dentry text={'Entry Complete!'} day={'27'} month={'Jun'}/>
             <Dentry text={'Entry Complete!'} day={'27'} month={'Jun'}/>
-            <Dentry text={'Entry Complete!'} day={'27'} month={'Jun'}/>
+            <Dentry text={'Entry Complete!'} day={'27'} month={'Jun'}/> */}
             <View style={styles.Buffer}/>
           </ScrollView>
 
