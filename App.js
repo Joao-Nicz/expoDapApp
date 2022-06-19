@@ -1,101 +1,88 @@
-import { StyleSheet, Text, View , ScrollView, SafeAreaView} from 'react-native';
-import Dentry from './components/Dentry';
-import {DentryStatus} from './components/Dentry';
+import { StyleSheet, Text, View, ScrollView, SafeAreaView, Modal } from 'react-native';
+import Dentry from './components/dentry';
+import { DentryStatus } from './components/dentry';
+import OpenDentry from './components/openDentry';
+import useCalendarEvents from './hooks/useCalendarEvents';
+import { globalStyles } from './lib/global';
 
-export const AppStatus={
-  submitted: DentryStatus.complete,
-  inProgress: DentryStatus.halfcomplete,
-  empty: DentryStatus.notcomplete,
+
+/*
+pseudo code:
+
+If submit button is pressed then Completion = Complete ?? Completion = Uncomplete;
+
+const Uncompleted ={
+  text: 'uncomplete',
+  status: DentryStatus.notcomplete,
+};
+const Completed = {
+  text: 'complete',
+  status: DentryStatus.complete,
 };
 
-
-const StatusText={
-  submitted: 'Entry Complete!',
-  inProgress: 'Entry not finished!',
-  empty: 'No entry yet'
+const Date ={
+  day: Today.date,
+  month: Today.month
 };
+
+const NewDay = if time is 12am then +1
+
+calendarEvents = [
+  {
+    id: NewDay,
+    Completion, 
+    Date,
+  }
+]
+
+
+*/
+/*
+Need to automate this 
 const calendarEvents = [
   {
-    id: 1,
-    text: StatusText.submitted,
-    day: '28',
-    month: 'Jun',
-    status: AppStatus.submitted,
+    id: 1, //create a new one every day at 12am
+    day: '1', //automatically get date
+    month: 'Jul', //automatically get month
+    text: StatusText.submitted, //this needs to read if the user has pressed submit yet
+    status: DentryStatus.complete, //this needs to read if the user has pressed submit yet
   },
   {
     id: 2,
-    text: StatusText.inProgress,
-    day: '27',
+    day: '40',
     month: 'Jun',
-    status: AppStatus.inProgress,
+    text: StatusText.empty,
+    status: DentryStatus.notcomplete,
   },
   {
     id: 3,
-    text: StatusText.empty,
-    day: '26',
+    day: '30',
     month: 'Jun',
-    status: AppStatus.empty,
-  },
-  {
-    id: 4,
-    text: StatusText.empty,
-    day: '25',
-    month: 'Jun',
-    status: AppStatus.empty,
-  },
-
-];
+  }
+]; */
 
 export default function App() {
+  const [calendarEvents, completeCalendarEvent] = useCalendarEvents();
 
   return (
-    <View style={styles.container}>
-        
-        
-        {/* Diary Page */}
-        <View style={styles.Dpage}>
-          <Text style={styles.Dtitle}>12 Entries</Text>
+    <View style={globalStyles.container}>
 
-          <ScrollView style={styles.Ditems}>
-            {calendarEvents.map((calendarevent) => (
-              <Dentry key={calendarevent.id} {...calendarevent}/>
-            ))}
-            {/* This is where the different modules go */}
-            {/* <Dentry text={'Entry not complete'} day={'28'} month={'Jun'} status={AppStatus}/>
-            <Dentry text={'Entry Complete!'} day={'27'} month={'Jun'} status={AppStatus}/>
-            <Dentry text={'Entry Complete!'} day={'27'} month={'Nov'} status={AppStatus}/>
-            <Dentry text={'Entry Complete!'} day={'27'} month={'Jun'}/>
-            <Dentry text={'Entry Complete!'} day={'27'} month={'Jun'}/>
-            <Dentry text={'Entry Complete!'} day={'27'} month={'Jun'}/>
-            <Dentry text={'Entry Complete!'} day={'27'} month={'Jun'}/>
-            <Dentry text={'Entry Complete!'} day={'27'} month={'Jun'}/> */}
-            <View style={styles.Buffer}/>
-          </ScrollView>
+      {/* Diary Page */}
+      <View style={globalStyles.Dpage}>
+        <Text style={globalStyles.Dtitle}>{calendarEvents.length} Entries</Text>
 
-        </View>
-
+        <ScrollView style={globalStyles.Ditems}>
+          {/* calls on the CalendarEvents list and maps out its items*/}
+          {calendarEvents.map((calendarevent) => (
+            // This is used to mapp out every item with a new id on the list
+            <Dentry
+            key={calendarevent.id} {...calendarevent} 
+            onClick={() => completeCalendarEvent(calendarevent.id)}
+            />
+          ))}
+          <View style={globalStyles.Buffer} />
+        </ScrollView>
+      </View>
     </View>
   );
 }
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#9ccfed',
-  },
-  Dpage: {
-    paddingTop: 80,
-    paddingHorizontal: 20
-  },
-
-  Dtitle: {
-    fontSize: 54,
-    fontWeight: 'bold',
-    color: 'white',
-  },
-  Ditems: {},
-  Buffer: {
-    marginTop: 70,
-  },
-});

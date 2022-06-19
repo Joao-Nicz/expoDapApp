@@ -1,84 +1,52 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Modal} from 'react-native';
+import { getMonthName } from '../lib/utils';
+import { globalStyles } from '../lib/global';
 
 // sets the color of each module automatically
 const Dentry = (props) => {
     const backgroundCompletionColor = StyleSheet.flatten (
-        [styles.itemText, stylesStatus[props.status] ?? stylesStatus.default]
+        [globalStyles.itemText, stylesStatus[props.status] ?? stylesStatus.default]
         )
+    const month = getMonthName(props.date);
+    const day = props.date.getDate();
+    // const [modalOpen, setModalOpen] = useState(false);
     return (
         // Makes each clickable module
-        <TouchableOpacity style={[styles.item, backgroundCompletionColor]}>
-                <View style={styles.itemLeft}>
-
-                    {/* This makes the colored calendar with importable dates */}
-                    <View style={styles.squareAll}>
-                        <View style={styles.squareTop}>
-                            <Text style={styles.calendarMonth}>{props.month}</Text>
-                        </View>
-                        <View style={styles.squareBot}>
-                            <Text style={styles.calendarDay}>{props.day}</Text>                      
-                        </View>
-                    </View>
-
-                    {/* Text to inform user if entry is complete yet or not */}
-                    <Text style={styles.itemText}>{props.text}</Text>
+        <TouchableOpacity 
+        style={[globalStyles.item, backgroundCompletionColor]}
+        onPress={props.onClick}
+        >
+            <Modal visible={false}>
+                <View style={globalStyles.modalContent}>
+                    <Text>hello from modal of {month} {day}</Text>
                 </View>
+            </Modal>
+            
+            <View style={globalStyles.itemLeft}>
+
+                {/* This makes the colored calendar with importable dates */}
+                <View style={globalStyles.squareAll}>
+                    <View style={globalStyles.squareTop}>
+                        <Text style={globalStyles.calendarMonth}>{month}</Text>
+                    </View>
+                    <View style={globalStyles.squareBot}>
+                        <Text style={globalStyles.calendarDay}>{day}</Text>                      
+                    </View>
+                </View>
+
+                {/* Text to inform user if entry is complete yet or not */}
+                <Text style={globalStyles.itemText}>{props.text}</Text>
+            </View>
         </TouchableOpacity> 
     )
 }
 
-const styles = StyleSheet.create({
-  
-    item: {
-        backgroundColor: '#75d1b6',
-        padding: 20,
-        borderRadius: 10,
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 20,
-        
-    },
-    itemLeft: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        flexWrap: 'wrap',
-    },
-
-    squareTop:{
-        width:60,
-        height: 20,
-        borderTopLeftRadius:7,
-        borderTopRightRadius:7,
-        backgroundColor: 'red',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    squareBot: {
-        width: 60,
-        height: 40,
-        borderBottomLeftRadius: 7,
-        borderBottomRightRadius:7,
-        marginRight: 15,
-        flexDirection: 'column',
-        alignItems: 'center',
-        padding: 2,
-        backgroundColor: 'white',
-    },
-    calendarDay: {fontSize: 30, color: 'black',},
-    calendarMonth: { color: 'white',},
-    itemText: {
-        color: 'white',
-        fontSize: 30,
-    
-    },   
-});
 
 
 const stylesStatus = StyleSheet.create ({
-    complete: {backgroundColor: '#42f563'},
-    halfcomplete: {backgroundColor: '#adf7bb'},
-    notcomplete: {backgroundColor: '#81e394'},
+    complete: {backgroundColor: '#62DE78'},
+    notcomplete: {backgroundColor: '#FF7474'},
     default: {
         backgroundColor: 'grey',
         padding: 20,
@@ -91,7 +59,6 @@ const stylesStatus = StyleSheet.create ({
 
 export const DentryStatus={
     complete: 'complete',
-    halfcomplete: 'halfcomplete',
     notcomplete: 'notcomplete',
 };
 
