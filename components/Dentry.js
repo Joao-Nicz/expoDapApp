@@ -1,7 +1,9 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Modal} from 'react-native';
+import { useState } from "react";
+import {View, Text, StyleSheet, TouchableOpacity, Modal, Button} from 'react-native';
 import { getMonthName } from '../lib/utils';
 import { globalStyles } from '../lib/global';
+import OpenDentry from './OpenDentry';
 
 // sets the color of each module automatically
 const Dentry = (props) => {
@@ -10,17 +12,19 @@ const Dentry = (props) => {
         )
     const month = getMonthName(props.date);
     const day = props.date.getDate();
-    // const [modalOpen, setModalOpen] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
     return (
         // Makes each clickable module
         <TouchableOpacity 
         style={[globalStyles.item, backgroundCompletionColor]}
-        onPress={props.onClick}
+        onPress={() =>setModalOpen(true)}
         >
-            <Modal visible={false}>
-                <View style={globalStyles.modalContent}>
-                    <Text>hello from modal of {month} {day}</Text>
-                </View>
+            <Modal visible={modalOpen}>
+                    <View style={globalStyles.modalContent}>
+                        <Text>hello from modal of {month} {day} inside OpenDentry</Text>
+                        <Button onPress={() => setModalOpen(false)}></Button>
+                        <Button onPress={props.onClick}></Button>
+                    </View>
             </Modal>
             
             <View style={globalStyles.itemLeft}>

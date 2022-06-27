@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, ScrollView, SafeAreaView, Modal } from 'react-native';
 import Dentry from './components/dentry';
 import { DentryStatus } from './components/dentry';
-import OpenDentry from './components/openDentry';
+import OpenDentry from './components/OpenDentry';
 import useCalendarEvents from './hooks/useCalendarEvents';
 import { globalStyles } from './lib/global';
 
