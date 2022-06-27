@@ -20,11 +20,13 @@ const Dentry = (props) => {
         onPress={() =>setModalOpen(true)}
         >
             <Modal visible={modalOpen}>
-                    <View style={globalStyles.modalContent}>
-                        <Text>hello from modal of {month} {day} inside OpenDentry</Text>
-                        <Button onPress={() => setModalOpen(false)}></Button>
-                        <Button onPress={props.onClick}></Button>
-                    </View>
+                    <OpenDentry
+                        dateExport= {[month, ' ', day]}>
+                    </OpenDentry>
+
+
+                    {/* Styles do not come through to modal page */}
+                    <Button style={globalStyles.squareBot} onPress={() => setModalOpen(false)}></Button>
             </Modal>
             
             <View style={globalStyles.itemLeft}>

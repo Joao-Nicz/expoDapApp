@@ -1,28 +1,46 @@
-import { StyleSheet, Text, View , ScrollView, SafeAreaView} from 'react-native';
+import { StyleSheet, Text, View , ScrollView, SafeAreaView, Button} from 'react-native';
 import Dentry from './dentry';
 import {DentryStatus} from './dentry';
 import {Formik} from 'formik';
+import { getMonthName } from '../lib/utils';
 
-export default function OpenDentry(){
+
+const OpenDentry = (props) => {
+
     return(
-        <View style={oDStyles.ODContainer}>
-            <Formik
-                initialValues={{title: '', body: '', rating: ''}}
-                onSubmit={(values) => {
 
-                }}
-            >
-                {(formikprops)=> (
-                    <View>
-                        <TextInput
-                        style={oDStyles.ODForm}
-                        placeholder= 'Review Title'
-                        onChangeText={props.handleChange('title')}
-                        value={props.value.title}
-                        />
-                    </View>
-                )}    
-            </Formik>
+        // ********************************IGNORE FOR NOW **************************************
+       
+        // <View style={oDStyles.ODContainer}>
+        //     <Formik
+        //         initialValues={{title: '', body: '', rating: ''}}
+        //         onSubmit={(values) => {
+        //         }}
+        //     >
+        //         {(formikprops)=> (
+        //             <View>
+        //                 <TextInput
+        //                 style={oDStyles.ODForm}
+        //                 placeholder= 'Review Title'
+        //                 onChangeText={props.handleChange('title')}
+        //                 value={props.value.title}
+        //                 />
+        //             </View>
+        //         )}    
+        //     </Formik>
+        // </View>
+        
+        // ********************************IGNORE FOR NOW ***************************************
+
+
+        
+        // Cannot put the return button and submit button onto this 
+
+        // Ideally I would like to have a button that looks like the following at the bottom of the form 
+        // <Button style={globalStyles.buttonStyle} onPress={() => setModalOpen(false) AND props.onClick}></Button>
+        <View>
+            <Text>{props.dateExport}</Text>
+           
         </View>
     )
 }
@@ -40,3 +58,5 @@ const oDStyles= StyleSheet.create({
         backgroundColor: 'white',
     }
 });
+
+export default OpenDentry;
