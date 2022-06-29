@@ -1,8 +1,9 @@
-import { StyleSheet, Text, View , ScrollView, SafeAreaView, Button} from 'react-native';
+import { StyleSheet, Text, View , ScrollView, SafeAreaView, Button, Pressable} from 'react-native';
 import Dentry from './dentry';
 import {DentryStatus} from './dentry';
 import {Formik} from 'formik';
 import { getMonthName } from '../lib/utils';
+import { globalStyles } from '../lib/global';
 
 
 const OpenDentry = (props) => {
@@ -38,10 +39,14 @@ const OpenDentry = (props) => {
 
         // Ideally I would like to have a button that looks like the following at the bottom of the form 
         // <Button style={globalStyles.buttonStyle} onPress={() => setModalOpen(false) AND props.onClick}></Button>
-        <View>
-            <Text>{props.dateExport}</Text>
-           
-        </View>
+        <View style={globalStyles.squareAll}>
+                    <View style={globalStyles.squareTop}>
+                        <Text style={globalStyles.calendarMonth}>{props.monthExport}</Text>
+                    </View>
+                    <View style={globalStyles.squareBot}>
+                        <Text style={globalStyles.calendarDay}>{props.dayExport}</Text>                      
+                    </View>
+                </View>
     )
 }
 

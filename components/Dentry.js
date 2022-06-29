@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from "react";
-import {View, Text, StyleSheet, TouchableOpacity, Modal, Button} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Modal, Button, Pressable} from 'react-native';
 import { getMonthName } from '../lib/utils';
 import { globalStyles } from '../lib/global';
 import OpenDentry from './OpenDentry';
@@ -13,6 +13,8 @@ const Dentry = (props) => {
     const month = getMonthName(props.date);
     const day = props.date.getDate();
     const [modalOpen, setModalOpen] = useState(false);
+    const returnBut = '<'
+    const submitBut = 'submit'
     return (
         // Makes each clickable module
         <TouchableOpacity 
@@ -20,13 +22,16 @@ const Dentry = (props) => {
         onPress={() =>setModalOpen(true)}
         >
             <Modal visible={modalOpen}>
+                <View style={globalStyles.itemLeft}>
+                    <Pressable onPress={() => setModalOpen(false)} style={globalStyles.returnButton}>{returnBut}</Pressable>
                     <OpenDentry
-                        dateExport= {[month, ' ', day]}>
+                        monthExport= {month}
+                        dayExport={day}>
                     </OpenDentry>
-
+                </View>
 
                     {/* Styles do not come through to modal page */}
-                    <Button style={globalStyles.squareBot} onPress={() => setModalOpen(false)}></Button>
+                    <Pressable onPress={props.onClick} style={globalStyles.submitBut}>{submitBut}</Pressable>
             </Modal>
             
             <View style={globalStyles.itemLeft}>
