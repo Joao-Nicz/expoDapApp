@@ -9,23 +9,19 @@ const Completed = {
     text: 'complete',
     status: DentryStatus.complete,
   };
-
-
+ 
+const initialEvents = (new Array(365)).fill('x').map((value, index) => {
+    return{
+        id: index + 1,
+        ...Uncompleted,
+        date: new Date(new Date().getTime()-(index*24*60*60*1000))
+    }
+})
 
 export default function useCalendarEvents() {
-    const [calendarEvents, setCalendarEvents] = useState([
-        {id: 1,
-        ...Uncompleted, 
-        date: new Date(2022, 10, 17),},
+    console.log(initialEvents)
+    const [calendarEvents, setCalendarEvents] = useState(initialEvents); 
 
-        {id: 2,
-        ...Uncompleted, 
-        date: new Date(2022, 7, 14),},
-
-        {id: 3,
-            ...Uncompleted, 
-            date: new Date(2022, 7, 14),}
-    ]); 
     const completeCalendarEvent = (id) =>{
         const updatedCalendarEvents = calendarEvents.map((calendarEvent) => {
             return {

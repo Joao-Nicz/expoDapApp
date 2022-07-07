@@ -7,7 +7,7 @@ import { globalStyles } from '../lib/global';
 
 
 const OpenDentry = (props) => {
-
+    console.log(props)
     return(
 
         // ********************************IGNORE FOR NOW **************************************
@@ -39,14 +39,19 @@ const OpenDentry = (props) => {
 
         // Ideally I would like to have a button that looks like the following at the bottom of the form 
         // <Button style={globalStyles.buttonStyle} onPress={() => setModalOpen(false) AND props.onClick}></Button>
-        <View style={globalStyles.squareAll}>
-                    <View style={globalStyles.squareTop}>
-                        <Text style={globalStyles.calendarMonth}>{props.monthExport}</Text>
+        <View>
+            
+        
+            <View style={globalStyles.squareAll}>
+                <View style={globalStyles.squareTop}>
+                    <Text style={globalStyles.calendarMonth}>{props.month}</Text>
                     </View>
                     <View style={globalStyles.squareBot}>
-                        <Text style={globalStyles.calendarDay}>{props.dayExport}</Text>                      
-                    </View>
+                    <Text style={globalStyles.calendarDay}>{props.day}</Text>                      
                 </View>
+            </View>
+            <Pressable onPress={props.submitClick}><Text style={globalStyles.submitBut}>submit</Text></Pressable>
+        </View>
     )
 }
 

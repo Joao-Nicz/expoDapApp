@@ -15,6 +15,10 @@ const Dentry = (props) => {
     const [modalOpen, setModalOpen] = useState(false);
     const returnBut = '<'
     const submitBut = 'submit'
+    const submitClick = () => {
+        setModalOpen(false);
+        props.onClick();
+    };
     return (
         // Makes each clickable module
         <TouchableOpacity 
@@ -23,15 +27,16 @@ const Dentry = (props) => {
         >
             <Modal visible={modalOpen}>
                 <View style={globalStyles.itemLeft}>
-                    <Pressable onPress={() => setModalOpen(false)} style={globalStyles.returnButton}>{returnBut}</Pressable>
+                    <Pressable onPress={() => setModalOpen(false)}><Text style={globalStyles.returnButton}>{returnBut}</Text></Pressable>
                     <OpenDentry
-                        monthExport= {month}
-                        dayExport={day}>
+                        month={month}
+                        day={day}
+                        submitClick={submitClick}>
                     </OpenDentry>
                 </View>
 
                     {/* Styles do not come through to modal page */}
-                    <Pressable onPress={props.onClick} style={globalStyles.submitBut}>{submitBut}</Pressable>
+                    
             </Modal>
             
             <View style={globalStyles.itemLeft}>
