@@ -10,7 +10,7 @@ const Completed = {
     status: DentryStatus.complete,
   };
  
-const initialEvents = (new Array(365)).fill('x').map((value, index) => {
+const initialEvents = (new Array(10)).fill('x').map((value, index) => {
     return{
         id: index + 1,
         ...Uncompleted,

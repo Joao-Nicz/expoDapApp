@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View , ScrollView, SafeAreaView, Button, Pressable} from 'react-native';
+import { StyleSheet, Text, View , ScrollView, SafeAreaView, Button, Pressable, TextInput} from 'react-native';
 import Dentry from './dentry';
 import {DentryStatus} from './dentry';
 import {Formik} from 'formik';
@@ -6,56 +6,59 @@ import { getMonthName } from '../lib/utils';
 import { globalStyles } from '../lib/global';
 
 
+
 const OpenDentry = (props) => {
-    console.log(props)
+    console.log(props);
+    
     return(
 
-        // ********************************IGNORE FOR NOW **************************************
-       
-        // <View style={oDStyles.ODContainer}>
-        //     <Formik
-        //         initialValues={{title: '', body: '', rating: ''}}
-        //         onSubmit={(values) => {
-        //         }}
-        //     >
-        //         {(formikprops)=> (
-        //             <View>
-        //                 <TextInput
-        //                 style={oDStyles.ODForm}
-        //                 placeholder= 'Review Title'
-        //                 onChangeText={props.handleChange('title')}
-        //                 value={props.value.title}
-        //                 />
-        //             </View>
-        //         )}    
-        //     </Formik>
-        // </View>
-        
-        // ********************************IGNORE FOR NOW ***************************************
-
-
-        
         // Cannot put the return button and submit button onto this 
 
         // Ideally I would like to have a button that looks like the following at the bottom of the form 
         // <Button style={globalStyles.buttonStyle} onPress={() => setModalOpen(false) AND props.onClick}></Button>
         <View>
-            
         
-            <View style={globalStyles.squareAll}>
-                <View style={globalStyles.squareTop}>
-                    <Text style={globalStyles.calendarMonth}>{props.month}</Text>
+
+            <Formik
+                initialValues={{ slider: '', firstQ: '', secondQ: '' }}
+                onSubmit={(values) =>{
+                    console.log(values);
+                    props.submitClick();
+                }}
+               
+            > 
+                {(props)=> (
+                    <View>
+                        <TextInput
+                        style={ODStyles.ODForm}
+                        placeholder= 'slider'
+                        onChangeText={props.handleChange('slider')}
+                        value={props.values.slider}
+                        />
+                        <TextInput
+                        style={ODStyles.ODForm}
+                        placeholder= '1st Question'
+                        onChangeText={props.handleChange('firstQ')}
+                        value={props.values.firstQ}
+                        />
+                        <TextInput
+                        style={ODStyles.ODForm}
+                        placeholder= '2nd Question'
+                        onChangeText={props.handleChange('secondQ')}
+                        value={props.values.secondQ}
+                        />
+
+                        <Pressable onPress={props.handleSubmit}><Text style={globalStyles.submitBut}>submit entry</Text></Pressable>
                     </View>
-                    <View style={globalStyles.squareBot}>
-                    <Text style={globalStyles.calendarDay}>{props.day}</Text>                      
-                </View>
-            </View>
-            <Pressable onPress={props.submitClick}><Text style={globalStyles.submitBut}>submit</Text></Pressable>
+                )}
+
+            </Formik>
         </View>
     )
+    
 }
 
-const oDStyles= StyleSheet.create({
+const ODStyles= StyleSheet.create({
     ODForm: {
         borderWidth: 1,
         borderColor: '#ddd',

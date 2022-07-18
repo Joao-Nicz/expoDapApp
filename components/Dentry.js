@@ -14,7 +14,8 @@ const Dentry = (props) => {
     const day = props.date.getDate();
     const [modalOpen, setModalOpen] = useState(false);
     const returnBut = '<'
-    const submitBut = 'submit'
+    
+    //this is how you make two or more things be done with 1 button
     const submitClick = () => {
         setModalOpen(false);
         props.onClick();
@@ -26,19 +27,25 @@ const Dentry = (props) => {
         onPress={() =>setModalOpen(true)}
         >
             <Modal visible={modalOpen}>
-                <View style={globalStyles.itemLeft}>
+                <View style={globalStyles.modalContentRow}>
+                    
+                    {/* style has to be applied to text INSIDE of pressable or else it does not work!! */}
                     <Pressable onPress={() => setModalOpen(false)}><Text style={globalStyles.returnButton}>{returnBut}</Text></Pressable>
+                    <Text style={globalStyles.modalTitle}>{month} {day}</Text>
+                </View>
+                <View style={globalStyles.modalContentCol}>
                     <OpenDentry
+                    // Exporting the props for the other page can use the same name as the thing you are exporting (makes it easier)
                         month={month}
                         day={day}
                         submitClick={submitClick}>
                     </OpenDentry>
+                    <Text>{props.values}</Text>
                 </View>
-
-                    {/* Styles do not come through to modal page */}
-                    
             </Modal>
             
+
+            {/* each clickable module */}
             <View style={globalStyles.itemLeft}>
 
                 {/* This makes the colored calendar with importable dates */}
