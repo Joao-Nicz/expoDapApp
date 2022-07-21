@@ -16,9 +16,9 @@ const Dentry = (props) => {
     const returnBut = '<'
     
     //this is how you make two or more things be done with 1 button
-    const submitClick = () => {
+    const submitClick = (values) => {
         setModalOpen(false);
-        props.onClick();
+        props.onSubmitClick(values);
     };
     return (
         // Makes each clickable module
@@ -38,9 +38,10 @@ const Dentry = (props) => {
                     // Exporting the props for the other page can use the same name as the thing you are exporting (makes it easier)
                         month={month}
                         day={day}
-                        submitClick={submitClick}>
+                        submitClick={submitClick}
+                        valuesStored={props.values}
+                        >
                     </OpenDentry>
-                    <Text>{props.values}</Text>
                 </View>
             </Modal>
             

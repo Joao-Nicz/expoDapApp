@@ -8,7 +8,8 @@ import { globalStyles } from '../lib/global';
 
 
 const OpenDentry = (props) => {
-    console.log(props);
+    console.log(props.valuesStored);
+    console.log({ slider: '', firstQ: '', secondQ: '',...props.valuesStored })
     
     return(
 
@@ -20,10 +21,9 @@ const OpenDentry = (props) => {
         
 
             <Formik
-                initialValues={{ slider: '', firstQ: '', secondQ: '' }}
+                initialValues={{ slider: '', firstQ: '', secondQ: '',...props.valuesStored }}
                 onSubmit={(values) =>{
-                    console.log(values);
-                    props.submitClick();
+                    props.submitClick(values);
                 }}
                
             > 

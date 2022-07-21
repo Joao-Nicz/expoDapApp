@@ -77,7 +77,7 @@ export default function App() {
             // This is used to mapp out every item with a new id on the list
             <Dentry
             key={calendarevent.id} {...calendarevent} 
-            onClick={() => completeCalendarEvent(calendarevent.id)}
+            onSubmitClick={(values) => completeCalendarEvent(calendarevent.id, values)}
             />
           ))}
           <View style={globalStyles.Buffer} />
