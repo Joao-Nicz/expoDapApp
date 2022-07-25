@@ -1,8 +1,5 @@
 import { StyleSheet, Text, View , ScrollView, SafeAreaView, Button, Pressable, TextInput} from 'react-native';
-import Dentry from './dentry';
-import {DentryStatus} from './dentry';
 import {Formik} from 'formik';
-import { getMonthName } from '../lib/utils';
 import { globalStyles } from '../lib/global';
 
 
@@ -10,6 +7,7 @@ import { globalStyles } from '../lib/global';
 const OpenDentry = (props) => {
     console.log(props.valuesStored);
     console.log({ slider: '', firstQ: '', secondQ: '',...props.valuesStored })
+ 
     
     return(
 
@@ -17,43 +15,58 @@ const OpenDentry = (props) => {
 
         // Ideally I would like to have a button that looks like the following at the bottom of the form 
         // <Button style={globalStyles.buttonStyle} onPress={() => setModalOpen(false) AND props.onClick}></Button>
-        <View>
+        
         
 
             <Formik
-                initialValues={{ slider: '', firstQ: '', secondQ: '',...props.valuesStored }}
+                initialValues={{ painLevel: '',painDesc: '', firstQ: '', secondQ: '',...props.valuesStored }}
                 onSubmit={(values) =>{
                     props.submitClick(values);
+                    console.log('button pressed')
                 }}
-               
             > 
-                {(props)=> (
-                    <View>
-                        <TextInput
-                        style={ODStyles.ODForm}
-                        placeholder= 'slider'
-                        onChangeText={props.handleChange('slider')}
-                        value={props.values.slider}
-                        />
-                        <TextInput
-                        style={ODStyles.ODForm}
-                        placeholder= '1st Question'
-                        onChangeText={props.handleChange('firstQ')}
-                        value={props.values.firstQ}
-                        />
-                        <TextInput
-                        style={ODStyles.ODForm}
-                        placeholder= '2nd Question'
-                        onChangeText={props.handleChange('secondQ')}
-                        value={props.values.secondQ}
-                        />
-
-                        <Pressable onPress={props.handleSubmit}><Text style={globalStyles.submitBut}>submit entry</Text></Pressable>
+                {({handleChange, values, handleSubmit})=> (
+                    <View style={{flex: 1, justifyContent: 'space-between'}}>
+                        <View>
+                            <Text style={ODStyles.ODTitles}>Pain level</Text> 
+                            <TextInput
+                            style={ODStyles.ODForm}
+                            placeholder= 'from 1 to 10 (10 being the worst)'
+                            onChangeText={handleChange('painLevel')}
+                            value={values.painLevel}
+                            keyboardType='numeric'
+                            />
+                            <Text style={ODStyles.ODTitles}>Pain description</Text> 
+                            <TextInput
+                            style={ODStyles.ODForm}
+                            placeholder= 'eg. burning aching stabbing sharp dull other'
+                            onChangeText={handleChange('painDesc')}
+                            value={values.painDesc}
+                            />
+                            <Text style={ODStyles.ODTitles}>Changes in bite</Text> 
+                            <TextInput
+                            style={ODStyles.ODForm}
+                            placeholder= 'eg. my bite has become slightly shifted to the right'
+                            onChangeText={handleChange('firstQ')}
+                            value={values.firstQ}
+                            />
+                            <Text style={ODStyles.ODTitles}>Extra comments</Text> 
+                            <TextInput
+                            style={ODStyles.ODForm}
+                            placeholder= 'eg. strange sensation in the jaw'
+                            onChangeText={handleChange('secondQ')}
+                            value={values.secondQ}
+                            numberOfLines={5}
+                            textAlignVertical='top'
+                            />
+                        </View>
+                        <View style={globalStyles.submitBut} >
+                            <Button onPress={handleSubmit} title='submit' color={'black'}/>
+                        </View>
                     </View>
                 )}
 
             </Formik>
-        </View>
     )
     
 }
@@ -65,10 +78,24 @@ const ODStyles= StyleSheet.create({
         padding: 10,
         fontSize: 18,
         borderRadius: 6,
+        marginHorizontal: 10,
+        marginVertical: 7,
     },
-    ODContainer:{
-        flex: 1,
-        backgroundColor: 'white',
+    ODFormTall: {
+        borderWidth: 1,
+        borderColor: '#ddd',
+        padding: 5,
+        fontSize: 18,
+        borderRadius: 6,
+        marginHorizontal: 10,
+        marginVertical: 7,
+        paddingVertical: 20,
+    
+
+    },
+    ODTitles:{
+        fontSize: 20,
+        marginHorizontal:10,
     }
 });
 

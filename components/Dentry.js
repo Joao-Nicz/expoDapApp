@@ -26,12 +26,13 @@ const Dentry = (props) => {
         style={[globalStyles.item, backgroundCompletionColor]}
         onPress={() =>setModalOpen(true)}
         >
-            <Modal visible={modalOpen}>
+            <Modal visible={modalOpen} >
                 <View style={globalStyles.modalContentRow}>
                     
                     {/* style has to be applied to text INSIDE of pressable or else it does not work!! */}
                     <Pressable onPress={() => setModalOpen(false)}><Text style={globalStyles.returnButton}>{returnBut}</Text></Pressable>
                     <Text style={globalStyles.modalTitle}>{month} {day}</Text>
+                    <View style={{ paddingHorizontal: 15,}}></View>
                 </View>
                 <View style={globalStyles.modalContentCol}>
                     <OpenDentry

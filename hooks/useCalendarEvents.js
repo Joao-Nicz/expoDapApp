@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { DentryStatus } from '../components/dentry';
+import { useEffect, useState } from "react";
+import { DentryStatus } from '../components/Dentry';
+import * as FileSystem from 'expo-file-system';
 
 const Uncompleted ={
     text: 'uncomplete',
@@ -17,12 +18,14 @@ const initialEvents = (new Array(10)).fill('x').map((value, index) => {
         date: new Date(new Date().getTime()-(index*24*60*60*1000)),
         values: {},
     }
-})
+});
+
+const fileName = FileSystem.documentDirectory + "calendarEvents.txt";
 
 export default function useCalendarEvents() {
-    const [calendarEvents, setCalendarEvents] = useState(initialEvents); 
+    const [calendarEvents, setCalendarEvents] = useState([]); 
 
-    const completeCalendarEvent = (id, values) =>{
+    const completeCalendarEvent = async(id, values) =>{
         const updatedCalendarEvents = calendarEvents.map((calendarEvent) => {
             return {
                 ...calendarEvent, 
@@ -32,7 +35,24 @@ export default function useCalendarEvents() {
             }
         });
         console.log(updatedCalendarEvents);
+        await FileSystem.writeAsStringAsync(fileName, JSON.stringify(updatedCalendarEvents), { encoding: FileSystem.EncodingType.UTF8 });
         setCalendarEvents(updatedCalendarEvents);
     };
+
+    useEffect(()=>{
+        FileSystem.readAsStringAsync(fileName, { encoding: FileSystem.EncodingType.UTF8 }).then((value)=>{
+        const eventsLoaded = JSON.parse(value).map((loadedEvent)=>{
+            return {
+                ...loadedEvent,
+                date: new Date(loadedEvent.date)
+            }
+        });
+        console.log(eventsLoaded);
+        setCalendarEvents(eventsLoaded);
+            
+        }).catch(()=>{
+            setCalendarEvents(initialEvents)
+        })
+    },[])
 return[calendarEvents, completeCalendarEvent]
 };
